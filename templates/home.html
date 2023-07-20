@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CodeScaper</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="">
+    <style>
+      body{
+      font-family: Arial, san-serif;
+      margin: 0;
+      padding: 0;
+      }
+      .navbar{
+        background-color: rgb(152, 193, 193);
+        overflow: hidden;
+      }
+      .navbar a {
+      justify-content: center;
+      float: left;
+      color:black;
+      padding: 14px 18px;
+      text-decoration: none;
+      font-size: 24px;
+      }
+      .navbar a:hover {
+        background-color: rgb(73, 128, 124);
+        border-radius: 8px;
+      }
+      .question-list {
+      list-style-type: none;
+      padding: 0;
+    }
+    
+    .question-list li {
+      margin-bottom: 10px;
+    }
+    
+    .question-list li a {
+      text-decoration: none;
+      color: rgb(73, 128, 124);
+    }
+    
+    .question-list li a:hover {
+      text-decoration: underline;
+    }
+    </style>
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div class="navbar">
+      <a href="{% url 'home' %}">CodeScaper</a>
+      <a href = "#"> {{ user.username }}</a>
+    
+      <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+
+    </div>
+    <div>
+      <ul class="question-list">
+          {% for q in questions %}
+              <li><a href="problem/{{ q.problem_id }}">{{ q.problem_name }}</a></li>
+          {% endfor %}
+      </ul>
+  </div>
+  
+    <script src="" async defer></script>
+  </body>
+</html>
