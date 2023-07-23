@@ -13,23 +13,22 @@
           padding: 0;
         }
         
-        .navbar{
+        .navbar {
         background-color: rgb(152, 193, 193);
         overflow: hidden;
-        /* border-bottom: #333; */
       }
-       .navbar a {
-       justify-content: center;
-       float: left;
-       color:black;
-       padding: 14px 18px;
-       text-decoration: none;
-       font-size: 24px;
-       /* display: inline;  flex box pata nahi*/
+      .navbar a {
+        justify-content: center;
+        float: left;
+        color: black;
+        padding: 14px 18px;
+        text-decoration: none;
+        font-size: 24px;
       }
       .navbar a:hover {
         background-color: rgb(73, 128, 124);
         border-radius: 8px;
+        box-shadow: 3px whitesmoke;
       }
         
         .selected-question {
@@ -39,16 +38,17 @@
         }
         
         .compiler-container {
-          border: 1px solid #d59393;
+          border: 1px solid #3fb9bd;
+          border-radius: 10px;
           padding: 20px;
         }
 
         .CodeMirror-hints {
-            background-color: #f99d9d;
-            border: 1px solid #8d5858;
-            color: #333;
+            background-color: #2f8edc;
+            border: 1px solid #3159ab;
+            color: #191717;
             font-family: Arial, sans-serif;
-            font-size: 14px;
+            font-size: 20px;
           }
         
           .CodeMirror-hints .CodeMirror-hint {
@@ -57,7 +57,7 @@
           }
         
           .CodeMirror-hints .CodeMirror-hint:hover {
-            background-color: #e8e8e8;
+            background-color: #b6cbf0;
           }
 
       </style>
@@ -67,11 +67,7 @@
         <a href="{% url 'home' %}">Home</a>
         <a href = "#"> {{ user.username }}</a>
         <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
-    {% endif %}
-    {% if not user.is_authenticated %}
-    <a href="{% url 'signup' %}" >SignUp</a>
-    <a href="{% url 'login' %}" >Login</a>
-    {% endif %}
+  
     </div >
     <div style="text-align: center;">
         {{question.problem_name}}

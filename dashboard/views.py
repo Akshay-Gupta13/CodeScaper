@@ -6,7 +6,6 @@ from django.contrib import messages
 # Create your views here.
 
 @login_required(login_url='login')
-
 def HomePage(request):
     return render (request, 'home.html')
 
@@ -19,16 +18,16 @@ def SignupPage(request):
         password2=request.POST['password2'] 
         
         if username=="" or email=="" or password1=="" or password2=="":
-            messages.info(request,'Please fill all the fields')
+            messages.info(request,"Please fill all the fields.")
             return redirect('signup')
         
         elif password1==password2:
             if User.objects.filter(username=username).exists():
-                messages.info(request,'Username already taken')
+                messages.info(request,"Username already taken.")
                 return redirect('signup')
           
             elif User.objects.filter(email=email).exists():
-                 messages.info(request, 'Email already in use')
+                 messages.info(request, "Email already in use.")
                  return redirect('signup')
 
             else:  
@@ -36,7 +35,7 @@ def SignupPage(request):
                 user.save()
                 return redirect('login')
         else:
-            messages.info(request,'Password not matching')
+            messages.info(request,"Password not matching")
             return redirect('signup')
   
     else:
@@ -54,7 +53,7 @@ def LoginPage(request):
             login(request, user)
             return redirect('home')    
          else:
-           messages.info(request,'Invaild credentials')      
+           messages.info(request,"Invaild credentials.")      
            return redirect('login')
 
      else:
