@@ -19,44 +19,37 @@
           padding: 0;
         }
         
-        .navbar{
+        .navbar {
         background-color: rgb(152, 193, 193);
         overflow: hidden;
       }
       .navbar a {
-      justify-content: left;
-      float: left;
-      color:rgb(34, 28, 28);
-      padding: 14px 18px;
-      text-decoration: none;
-      font-size: 24px;
+        justify-content: center;
+        float: left;
+        color: black;
+        padding: 14px 45px;
+        text-decoration:wavy;
+        font-size: 24px;
       }
       .navbar a:hover {
         background-color: rgb(73, 128, 124);
         border-radius: 8px;
+        box-shadow: 3px whitesmoke;
       }
         
-        .selected-question {
-          text-align: center;
-          padding: 25px;
-          font-weight: bold;
-        }
-        
-        .compiler-container {
-          border: 2px solid #44a2d5;
-          padding: 20px;
-          border-radius: 15px;
-          border-width: 3px white;
-          background-color: black;
-          color: aliceblue;
           /* transform: translateY(50%); */
           /* .marker{ */
             /* color:aliceblue;
             background-color: black;
             
           } */
+          .Problem-description{
+            display: flex;
+            justify-content: left;
+            padding-left: 50px;
 
-        }
+          }
+        
         .main_data{
           display:contents;
           justify-content: space-around;
@@ -65,76 +58,42 @@
         
       </style>
     </head>
-    <>
+    <body> 
       <div class="navbar">
         <a href="{% url 'home' %}">CodeScaper</a>
         <a href="#">{{user.username}}</a>
         <a href="/account/logout">Logout</a>
       </div>
-        <h1 class="selected-question">{{ question.problem_name }}</h1>
+        <h2 class="selected-question">{{ question.problem_id }}-{{ question.problem_name }}</h2>
         <!-- <div>Difficulty: <span id="difficulty">{{difficulty}}</span></div> -->
         <!-- <div>Mark for later <span id="marker"><button></button></span></div> -->
-          
-             
-          <div class="main_data flex w-full">
-            <div class="question-description border-3 border-cyan-400 w-1/2 p-2">
-              {{ question.problem_description }}
-                        <!-- <div class="compiler-container"> -->
-            <textarea class ="border-3 border-cyan-400" name="Custom-TC" cols="15" rows="15"></textarea>
-            <br>
-            <button onclick="updateData()">Run Code</button>
-
-            <div id = "datacontainer">
-              <!-- dynamic content update here  -->
-            </div>
-          </div>
+        <div class="Problem-description">
+          {{ question.problem_description }}
         </div>
+        <form action="{{ problem_id }}/verdict" method="post">
+          {% csrf_token %}
+          <div class="from-label">
+            <label for ="language">Language</label>
+            <select class="from-format" id="language" name ="language">
+            <option value="c">C</option>
+            <option value="cpp">C++</option>
+            <option value="py">Python</option>
+          </select>
+         
+          <div class="from-format"></div>
+          <label for="code">Code goes here!</label>
+          <textarea class="from-format" id="code" name="code" rows="20" cols="50" class="border rounded-lg p-2 bg-lightblue" required></textarea>
+          
 
-     <div class="Complier-container flex flex-col border-3 border-cyan-400 w-1/2 p-2"></div>    
-
-              <!-- <form action="{{question.problem_id}}/verdict" method="POST">
-                  {% csrf_token %} -->
-                  <label for="language">Language</label>
-                  <select name="language" id="language">
-                      <option value="c">C</option>
-                      <option value="cpp">C++</option>
-                      <option value="py">Python</option>
-                  </select>
-                  <br>
-                  <label for="code">Code</label>
-                  <br>
-                  <textarea name="code" id="code" cols="70" rows="60" placeholder=""></textarea>
-                  <br>
-                  <button onclick="compileCode()">Submit Code</button>
-              <!-- </form> -->
+        </form>
+        <div class="code-submission">
+          <button>Submit Code</button>
+        </div> 
+      </div> 
+        
+   
               
-            </div>
-          </div>
-          <div class="verdict">
-            Verdict
-          </div>
-          
-          <script>
-
-            
-              switch (selectedLanguage) {
-                case "C":
-                  mode = "text/x-csrc";
-                  break;
-                case "C++":
-                  mode = "text/x-c++src";
-                  break;
-                case "python":
-                  mode = "python";
-                  break;
-                // Add additional cases for other languages if needed
-          
-                default:
-                  mode = null;
-              }
-          
-              // Update the CodeMirror mode
-             
+          <script>       
           </script>
        
 </body>

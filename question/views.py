@@ -8,16 +8,16 @@ import os
 
 def HomePage(request):
     question = Problem.objects.all()
-    return render(request,'home.html',{'questions':question})
+    return render(request,'home.html',{'question':question})
 
  
 
-def problem(request, problem_id):
-    question = problem.objects.get(pk=problem_id)
+def ProblemPage(request, problem_id):
+    question = Problem.objects.get(pk=problem_id)
     # print(question.problem_name)
-    print(problem_id)
+    # print(problem_id)
     return render(request,'question.html',{'question':question})
 
 def verdict(request, problem_id):
-    question = problem.objects.get(pk=problem_id)
+    question = Problem.objects.get(pk=problem_id)
     return render(request, 'verdict.html', {'question': question })

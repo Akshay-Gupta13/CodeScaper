@@ -10,7 +10,8 @@ class Problem(models.Model):
     problem_id = models.IntegerField(primary_key=True)                                 
     problem_name = models.CharField(max_length=200)   #question category bhi add karna hai
     problem_description = models.TextField()  
+    # problem_difficulty = models.CharField(max_length=20)
     problem_attempted = models.BooleanField(default = False)                 
     test_cases = models.ManyToManyField(test_case)                                            
     # testcase bhi add karna hai                                                                                
- 
+    # problem_category = models.CharField(max_length=50)

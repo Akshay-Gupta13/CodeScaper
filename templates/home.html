@@ -34,12 +34,18 @@
         border-radius: 8px;
         box-shadow: 3px whitesmoke;
       }
-      .question-list {
+      .question_index {
+        display: flex;
+        justify-content: left;
+        padding-left: 85px;
         list-style-type: none;
-        padding: 0;
+        /* padding: 0; */
       }
 
       .question-list li {
+        display: flex;
+        justify-content: left;
+        padding-left: 50px;
         margin-bottom: 10px;
       }
 
@@ -73,7 +79,7 @@
       <ul class ="question-list">
 
         {% for q in question %}
-        <li><a href="problem/{{ q.problem_id }}"> {{ q.problem_name }}</a></li>
+        <li><a href="problem/{{ q.problem_id }}">{{ q.problem_id }} {{ q.problem_name }}</a></li>
         {% endfor %}
       </ul>
     </div>
