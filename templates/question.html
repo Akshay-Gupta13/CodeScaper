@@ -55,6 +55,12 @@
           justify-content: space-around;
           
         }
+        /* .code-submission:button{
+          display: flex;
+          padding-left: 50px;
+          padding-top: 20px;
+          border-radius: 4px;
+        } */
         
       </style>
     </head>
@@ -62,7 +68,7 @@
       <div class="navbar">
         <a href="{% url 'home' %}">CodeScaper</a>
         <a href="#">{{user.username}}</a>
-        <a href="/account/logout">Logout</a>
+        <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
       </div>
         <h2 class="selected-question">{{ question.problem_id }}-{{ question.problem_name }}</h2>
         <!-- <div>Difficulty: <span id="difficulty">{{difficulty}}</span></div> -->
@@ -87,12 +93,12 @@
 
         </form>
         <div class="code-submission">
-          <button>Submit Code</button>
+          <button type="submit" class="btn btn-primary">Submit Code</button>
         </div> 
       </div> 
         
    
-              
+               
           <script>       
           </script>
        

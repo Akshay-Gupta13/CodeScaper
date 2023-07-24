@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Problem
-from onlinejudge.compiler import compile_code, run_code
+from onlinejudge.compiler import CodeCompiler, CodeRunner
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 import os
