@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Output</title>
+        <style>
+             body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background:beige;
+        }
+        
+        .navbar {
+          margin: 0;
+          padding: 0;
+        background-color: rgb(152, 193, 193);
+        overflow: hidden;
+      }
+      .navbar a {
+        justify-content: center;
+        float: left;
+        color: black;
+        padding: 14px 45px;
+        text-decoration:wavy;
+        font-size: 24px;
+      }
+      .navbar a:hover {
+        background-color: rgb(73, 128, 124);
+        border-radius: 8px;
+        box-shadow: 3px whitesmoke;
+      }
+        </style>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <div class="navbar">
+          <a href="{% url 'home' %}">CodeScaper</a>
+          <a href="#">{{user.username}}</a>
+          <h2>Outputs</h2>
+          <a href = "/output">Submissions</a>
+          <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+        </div>
+        <div class = "output_table">
+      <table>
+        <tr>
+            <th>User Name</th>
+            <th>Problem Name</th>
+            <th>Language</th>
+            <th>Verdict</th>
+            <th>Submission time</th>
+
+        </tr>
+        {for out in  output_list reversed %}
+        <tr>
+            <td> {{out.username}}</td>
+            <td> {{out.problem_name}}</td>
+            <td> {{out.time}}</td>
+            <td>
+                {% if out.language =="cpp" %}
+                C++
+                {% if out.language =="c" %}
+                C
+                {% if out.language =="py" %}
+                Python
+                {% else %}
+                N/A
+                {% endif %}
+            </td>
+            <td class="verdict-cell {% if sub.verdict == 'Accepted' %}accepted{% endif %}">{{ sub.verdict }}</td>
+        </tr>
+      {% endfor %}
+      </table>
+        </div>
+        <script src="" async defer></script>
+    </body>
+</html>

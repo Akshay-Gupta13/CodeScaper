@@ -80,7 +80,7 @@
       <ul class ="question-list">
 
         {% for q in question %}
-        <li><a href="problem/{{ q.problem_id }}">{{ q.problem_id }} {{ q.problem_name }}</a></li>
+        <li><a href="problem/{{ q.problem_id }}">{{ q.problem_id }} {{ q.problem_name }}   ({{ q.problem_difficulty}})</a></li>
         {% endfor %}
       </ul>
     </div>

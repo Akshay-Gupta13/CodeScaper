@@ -21,8 +21,8 @@
         justify-content: center;
         float: left;
         color: black;
-        padding: 14px 18px;
-        text-decoration: none;
+        padding: 14px 45px;
+        text-decoration:wavy;
         font-size: 24px;
       }
       .navbar a:hover {
@@ -30,41 +30,13 @@
         border-radius: 8px;
         box-shadow: 3px whitesmoke;
       }
-        
-        .selected-question {
-          text-align: center;
-          padding: 20px;
-          font-weight: bold;
-        }
-        
-        .compiler-container {
-          border: 1px solid #3fb9bd;
-          border-radius: 10px;
-          padding: 20px;
-        }
-
-        .CodeMirror-hints {
-            background-color: #2f8edc;
-            border: 1px solid #3159ab;
-            color: #191717;
-            font-family: Arial, sans-serif;
-            font-size: 20px;
-          }
-        
-          .CodeMirror-hints .CodeMirror-hint {
-            padding: 4px 8px;
-            cursor: pointer;
-          }
-        
-          .CodeMirror-hints .CodeMirror-hint:hover {
-            background-color: #b6cbf0;
-          }
+      
 
       </style>
 </head>
 <body>
     <div class="navbar">
-        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'home' %}">CodeScaper</a>
         <a href = "#"> {{ user.username }}</a>
         <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
   
@@ -73,9 +45,12 @@
         {{question.problem_name}}
     </div>
     <div>
-        <h1>Verdict</h1>
-        verdict
-        {{code}}
+      <h3>Test Results</h3>
+      <!-- <ul>result aaeyga toh yaha dikhana hai -->
+       {% for result in test_results %}
+       <li>{{result}}</li>
+       {% endfor %}
+      </ul>
     </div> 
       
 </body>

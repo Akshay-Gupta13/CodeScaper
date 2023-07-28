@@ -21,6 +21,8 @@
         }
         
         .navbar {
+          margin: 0;
+          padding: 0;
         background-color: rgb(152, 193, 193);
         overflow: hidden;
       }
@@ -44,25 +46,101 @@
             background-color: black;
             
           } */
-          .Problem-description{
-            display: flex;
-            justify-content: left;
-            padding-left: 50px;
+      .selected-question{
+        display: block;
+        text-align: center;
+      padding: 8px;
+      font-weight: bold;
+      }
+      .main_data {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+     }
+     .Problem-description{ 
+        display: flex;
+        justify-content: left;
+        padding-left: 35px;
+        padding-right: 35px;
 
           }
-        
-        .main_data{
-          display:contents;
-          justify-content: space-around;
           
-        }
-        /* .code-submission:button{
-          display: flex;
-          padding-left: 50px;
-          padding-top: 20px;
-          border-radius: 4px;
-        } */
-        
+      .compiler-container {
+      flex: 1;
+      border: 2px solid #478e9a;
+      padding: 20px;
+    }
+    
+    .compiler-container select{
+      width: 10%;
+      align-items: center;
+      /* color: #478e9a; */
+    }
+    .compiler-container textarea
+     {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 8px;
+    }
+    .compiler-container button{
+       width: 25%;
+       
+    }
+    .customTc-container {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .run-code-btn {
+      background-color: #286079;
+      color: #ffffff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .run-code-btn:hover {
+      background-color: rgb(0, 0, 0);
+      color: lightblue;
+    }
+  .Verdict {
+      text-align: center;
+      padding: 20px;
+      font-weight: bold;
+      background-color: #41819e;
+      color: #ffffff;
+      margin-top: 20px;
+    }
+    
+    .verdict-result {
+      padding: 10px;
+      margin: 20px auto;
+      max-width: 600px;
+      border: 2px solid #33a3a7;
+      border-radius: 5px;
+      background-color: #ffffff;
+    }
+    
+    .verdict-result.accepted {
+      color: green;
+    }
+    
+    .verdict-result.not-accepted {
+      color: red;
+    }
+
+    .output-textarea {
+      width: 100%;
+      height: 120px;
+      resize: vertical;
+      padding: 8px;
+      margin-top: 8px;
+      border: 2px solid #387b8a;
+      border-radius: 10px;
+    }  
       </style>
     </head>
     <body> 
@@ -71,37 +149,112 @@
         <a href="#">{{user.username}}</a>
         <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
       </div>
-        <h2 class="selected-question">{{ question.problem_id }}-{{ question.problem_name }}</h2>
-        <!-- <div>Difficulty: <span id="difficulty">{{difficulty}}</span></div> -->
-        <!-- <div>Mark for later <span id="marker"><button></button></span></div> -->
-        <div class="Problem-description">
-          {{ question.problem_description }}
-        </div>
-        <form action="{{ problem_id }}/verdict" method="post">
-          {% csrf_token %}
-          <div class="from-label">
-            <label for ="language">Language</label>
-            <select class="from-format" id="language" name ="language">
-            <option value="c">C</option>
-            <option value="cpp">C++</option>
-            <option value="py">Python</option>
-          </select>
-         
-          <div class="from-format"></div>
-          <label for="code">Code goes here!</label>
-          <textarea class="from-format" id="code" name="code" rows="30" cols="150" class="border rounded-lg p-2 bg-lightblue" required></textarea>
-          
-     <input type="Submit">
-        </form>
-        <!-- <div class="code-submission">
-          <button type="submit" class="btn btn-primary">Submit Code</button>
-        </div>  -->
-      </div> 
+        <h2 class="selected-question">{{ question.problem_id }}-{{ question.problem_name }}  ({{ question.problem_difficulty}})</h2>
+  <div class="main_data">
+    <div class="Problem-description">
+      {{ question.problem_description }}
+      <div class="customTc-container">
+        <textarea name="customTc" id="customTc" cols="30" rows="5"></textarea>
+        <br>
+        <div class="outputTextarea" id="outputTextarea"></div>
+        <br>
+        <button class="run-code-btn"onclick="updateData()">Run Code</button>
+      </div>
+    </div>
+    <div class="compiler-container">
+      <label for ="language">Language</label>
+      <select name ="language" id="language" >
+        <option value="c">C</option>
+        <option value="cpp">C++</option>
+        <option value="py">Python</option>
+      </select>
+      <br>
+      <div class="time-limit"> Time limit:{{question.problem_timelimit}} seconds  Memory limit:{{question.problem_memorylimit}} MB</div>
+      <br>
+      <label for="code">Code goes here!</label>
+      <br>
+      <textarea name="code" id="code" cols="50" rows="30"></textarea>
+      <br>
+      <button class="run-code-btn" onclick ="compileCode()">Submit</button>
+    </div>
+  </div> 
+  <div class="Verdict">
+    <h3>Verdict</h3>
+    <div class="verdict-result" id="Verdict">
+
+    </div>
+  </div>
+                     
+  <script>       
+    function compileCode(){
+      var csrf_token = "{{ csrf_token }}";
+      const language = document.getElementById("language").value;
+      const user_code = document.getElementById("code").value;
+      const payload = {
+        language : language,
+        code : user_code
+      }
+      fetch('{{question.problem_id}}/verdict', {
+          method: 'POST',
+          body: JSON.stringify(payload),
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrf_token
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          if(data.message == "Accepted"){
+            document.getElementById("Verdict").classList.add("accepted");
+          }
+          else{
+            document.getElementById("Verdict").classList.add("not-accepted");
+          }
+          const dataContainer = document.getElementById('Verdict');
+          // Update the content inside the data container
+          dataContainer.innerHTML = `
+            <p>${data.message}</p>
+          `;
+        })
+        }
+
+    function updateData() {
+      var csrf_token = "{{ csrf_token }}";
+      const user_tc = document.getElementById("customTc").value;
+      const user_code = document.getElementById("code").value;
+      console.log(user_code)
+      const language = document.getElementById("language").value;
+      const payload = {
+        user_tc: user_tc,
+        user_code: user_code,
+        language: language
         
-   
-               
-          <script>       
-          </script>
-       
+      };
+      
+      console.log(payload);
+      try {
+        fetch('customTc', {
+          method: 'POST',
+          body: JSON.stringify(payload),
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrf_token
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          const dataContainer = document.getElementById('outputTextarea');
+          // Update the content inside the data container
+          dataContainer.innerHTML = `
+            <p>${data.message}</p>
+          `;
+        })
+        .then
+        .catch(error => console.error('Error fetching data:', error));
+      } catch(err){
+        console.log(err);
+      }
+  }
+  </script>      
 </body>
 </html>

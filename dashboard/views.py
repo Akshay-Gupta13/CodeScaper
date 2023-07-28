@@ -52,10 +52,10 @@ def LoginPage(request):
          user = auth.authenticate(username=username,password=password)
 
          if user is not None:
-            login(request, user)
+            auth.login(request, user)
             return redirect('home')    
          else:
-           messages.info(request,"Invaild credentials.")      
+           messages.info(request,'Invaild credentials.')      
            return redirect('login')
 
      else:

@@ -1,74 +1,69 @@
 import subprocess
 import os
-from django import forms
-from codemirror import CodeMirrorTextarea
-# c++ 
-# c
-# python ke extension mai convert karna hai fir usko respective .
-# extension ke respect mai compile karna hai and then 
-# jo output aayega wo ile mai save karke read karna hai
 
-def CodeCompiler(file_path,language):
-    if language == 'c':
-        compiler = 'gcc'
-    elif language == 'cpp':
-        compiler = 'g++'
-    elif language == 'python':
-        return 1
-    else :
-         return 0
-    
-    curr_dir = os.getcwd()
+def compile_code(file_path, language):
+    compilers = {
+        'c': 'gcc',
+        'cpp': 'g++',
+    }
+    compiler = compilers.get(language)
+    if not compiler:
+        return 0
+
     try:
-        
-        os.chdir("question/trash")
-        compiledFile = subprocess.run([compiler, file_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        curr_dir = os.getcwd()
+        trash_dir = os.path.join("question", "trash")
+        os.chdir(trash_dir)
+        compiled_file = subprocess.run([compiler, file_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         os.chdir(curr_dir)
-        stderror = compiledFile.stderr.decode("utf-8")
-        if stderror =="":
+
+        std_error = compiled_file.stderr.decode("utf-8")
+        if std_error == "":
             return 1
         else:
             return 0
-    except:
+    except Exception as e:
         os.chdir(curr_dir)
-        return 0
+        return f"CodeError: {e}"
 
-
-
-
-
-
-
-###############################################
-def codeExecute(language,ip_data):
-    curr_dir = os.getcwd()
+def  run_code(language, input_data):
     try:
-        os.chdir("question/trash")
+        curr_dir = os.getcwd()
+        trash_dir = os.path.join("question", "trash")
+        os.chdir(trash_dir)
+
         if language == 'py':
-            result = subprocess.run(['python','temp.py'],input=ip_data.encode(),stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=5)
+            result = subprocess.run(['python', 'temp.py'], input=input_data.encode(),
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5)
         else:
-            result = subprocess.run(['./a.exe'],input=ip_data.encode(),stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=5)
-         
+            result = subprocess.run(['./a.exe'], input=input_data.encode(),
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5)
+
         os.chdir(curr_dir)
-        stdout_output = result.stdout
-        stderr_output = result.stderr
+        output = (result.stdout + result.stderr).decode('utf8')
 
         if result.returncode != 0:
-            raise subprocess.CalledProcessError(result.returncode, cmd=result.args, output=result.stdout, stderr=result.stderr)
+            raise subprocess.CalledProcessError(result.returncode, cmd=result.args, output=output)
 
-        return result.stdout.decode('utf8')
-    
+        return output
     except FileNotFoundError as e:
-        print(f"Error: {e.filename} not found.")
-        return "Error: File not found."
-   
-    except PermissionError as e:
-        print(f"Error: Permission denied for {e.filename}.")
-    
-    except subprocess.CalledProcessError as e:
-        print(f"Error: Command {e.cmd} returned non-zero exit code {e.returncode}.")
-        print(f"Stadard Output: {e.output}")
-        print(f"Standard Error: {e.stderr}")
         os.chdir(curr_dir)
-        return "Error occurred during Execution."
-###############################################################
+        return f"Error: {e.filename} not found."
+    except PermissionError as e:
+        os.chdir(curr_dir)
+        return f"Error: Permission denied for {e.filename}."
+    except subprocess.CalledProcessError as e:
+        os.chdir(curr_dir)
+        return f"Error: Command {e.cmd} returned non-zero exit code {e.returncode}."
+    except Exception as e:
+        os.chdir(curr_dir)
+        return f"Error occurred during execution: {e}"
+
+def check_tc(test_cases, language):
+    for idx, test_case in enumerate(test_cases, start=1):
+        result =  run_code(language, str(test_case.testcase_input).replace(" ", "\n"))
+        result = result.replace("\n", " ").replace("", "")
+
+        if result != test_case.testcase_output:
+            return f"Wrong answer on tc:{idx}"
+    return "Answer Accepted"
