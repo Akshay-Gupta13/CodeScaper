@@ -19,11 +19,11 @@ class Problem(models.Model):
     # testcase bhi add karna hai                                                                                
     # problem_category = models.CharField(max_length=50)
 
-class Submissions(models.Model):
-        user_name = models.CharField(max_length=50)
-        problem_id = models.IntegerField(primary_key=True)
+
+class submissions(models.Model):
+        user_id = models.CharField(max_length=50)
         problem_name = models.CharField(max_length=200)
-        submission_time = models.DateTimeField(auto_now_add=True)
-        language_used = models.CharField(max_length=10)
-        input_code = models.TextField()
-        verdict_user = models.CharField(max_length=120)
+        language = models.CharField(max_length=10)
+        code = models.TextField()
+        verdict = models.CharField(max_length=120)
+        time = models.DateTimeField(auto_now_add=True)

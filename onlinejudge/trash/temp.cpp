@@ -1,11 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
-
 int main(){
- int a =8, b=2;
- cout << a+b << endl;
+int a=4, int b=4;
 
-
-return 0;
+ cout << a+b<< endl;
+ return 0;
 }
-

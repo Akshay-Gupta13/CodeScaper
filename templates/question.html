@@ -60,8 +60,7 @@
      .Problem-description{ 
         display: flex;
         justify-content: left;
-        padding-left: 35px;
-        padding-right: 35px;
+        max-width:50%;
 
           }
           
@@ -83,14 +82,14 @@
       margin-bottom: 8px;
     }
     .compiler-container button{
-       width: 25%;
+       width: 20%;
        
     }
     .customTc-container {
-      display: inline-flex;
+      /* display: inline-flex; */
       flex-direction: column;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 5px;
     }
     
     .run-code-btn {
@@ -112,16 +111,17 @@
       font-weight: bold;
       background-color: #41819e;
       color: #ffffff;
-      margin-top: 20px;
+      margin-top: 10px;
     }
     
     .verdict-result {
       padding: 10px;
       margin: 20px auto;
-      max-width: 600px;
-      border: 2px solid #33a3a7;
+      max-width: 400px;
+      /* max-height:fit-content ; */
+      border: 3px solid #0b7777;
       border-radius: 5px;
-      background-color: #ffffff;
+      background-color: beige;
     }
     
     .verdict-result.accepted {
@@ -179,14 +179,14 @@
     </div>
   </div> 
   <div class="Verdict">
-    <h3>Verdict</h3>
+    <h2>Verdict</h2>
     <div class="verdict-result" id="Verdict">
 
     </div>
   </div>
                      
   <script>       
-    function compileCode(){
+function compileCode(){
       var csrf_token = "{{ csrf_token }}";
       const language = document.getElementById("language").value;
       const user_code = document.getElementById("code").value;
@@ -218,7 +218,7 @@
         })
         }
 
-    function updateData() {
+function updateData() {
       var csrf_token = "{{ csrf_token }}";
       const user_tc = document.getElementById("customTc").value;
       const user_code = document.getElementById("code").value;

@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Problem, Submissions
+from .models import Problem, submissions
 from onlinejudge.compiler import compile_code,run_code, check_tc
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -19,15 +19,12 @@ def HomePage(request):
 
 #############################################################
 @login_required(login_url='login')
-
 def ProblemPage(request, problem_id):
     question = Problem.objects.get(pk=problem_id)
-    # print(question.problem_name)
-    # print(problem_id)
     return render(request,'question.html',{'question':question})
 #############################################################
-@login_required(login_url='login')
 
+@login_required(login_url='login')
 def verdict(request,problem_id):
     question = Problem.objects.get(pk=problem_id)
     tc = Problem.objects.get(pk=problem_id).test_cases.all()
@@ -52,7 +49,7 @@ def verdict(request,problem_id):
             else:
                     verdict=0
 
-            submission = Submissions(
+            submission = submissions(
                 user_id=request.user.username,
                 problem_name=question.problem_name,
                 language=language,
@@ -65,7 +62,7 @@ def verdict(request,problem_id):
         return JsonResponse({"message": "Invalid Request"}, status=400)
   
 def sub(request):
-    submissions_list = Submissions.objects.all()
+    submissions_list = submissions.objects.all()
     return render(request,'output.html',{'submissions_list':submissions_list})
 
 def customTc(request):
@@ -78,7 +75,7 @@ def customTc(request):
         if code == "":
             return JsonResponse({"message": "user_tc is empty"}, status=400)
         else:
-            path = os.path.join(BASEDIR,f'OJ/waste/temp.{language}')
+            path = os.path.join(BASEDIR,f'onlinejudge\\trash\\temp.{language}')
             with open(path,'w') as f:
                 f.write(str(code))
 

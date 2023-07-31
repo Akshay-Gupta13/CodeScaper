@@ -12,7 +12,7 @@ def compile_code(file_path, language):
 
     try:
         curr_dir = os.getcwd()
-        trash_dir = os.path.join("question", "trash")
+        trash_dir = os.path.join("onlinejudge", "trash")
         os.chdir(trash_dir)
         compiled_file = subprocess.run([compiler, file_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         os.chdir(curr_dir)
@@ -29,7 +29,7 @@ def compile_code(file_path, language):
 def  run_code(language, input_data):
     try:
         curr_dir = os.getcwd()
-        trash_dir = os.path.join("question", "trash")
+        trash_dir = os.path.join("onlinejudge", "trash")
         os.chdir(trash_dir)
 
         if language == 'py':
@@ -59,11 +59,19 @@ def  run_code(language, input_data):
         os.chdir(curr_dir)
         return f"Error occurred during execution: {e}"
 
-def check_tc(test_cases, language):
-    for idx, test_case in enumerate(test_cases, start=1):
-        result =  run_code(language, str(test_case.testcase_input).replace(" ", "\n"))
-        result = result.replace("\n", " ").replace("", "")
+def check_tc(tc, language):
+    flag = 1
+    j = 0
+    idx = 0
+    for i in tc:
+        j+=1
+        result = run_code(language,str(i.tc_input).replace(" ","\n"))
+        result=result.replace("\n","").replace(" ","")
 
-        if result != test_case.testcase_output:
-            return f"Wrong answer on tc:{idx}"
-    return "Answer Accepted"
+        if result != i.tc_output:
+            flag = 0
+            idx = j
+    if flag == 0:
+        return f"Wrong Answer on tc: {idx}"
+    else:
+        return "Accepted" 
