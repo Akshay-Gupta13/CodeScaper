@@ -7,7 +7,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Output</title>
+        <title>Submission-Lists</title>
         <style>
              body {
           font-family: Arial, sans-serif;
@@ -35,7 +35,46 @@
         border-radius: 8px;
         box-shadow: 3px whitesmoke;
       }
-      
+         
+      .output_table{
+        padding: 16px;
+        display: flex;
+        justify-content: center;
+      }
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 5px;
+      }
+
+/* alternate lines ka shade change karna hai */
+  /* Apply the base styling to all table rows */
+tr {
+  background-color: #f2f2f2; /* Set the default background color for all rows */
+}
+
+/* Apply a different background color to odd rows */
+tr:nth-child(odd) {
+  background-color: #ffffff; /* Change this color to the desired color for odd rows */
+}
+
+/* Apply a different background color to even rows */
+tr:nth-child(even) {
+  background-color: #f9f9f9; /* Change this color to the desired color for even rows */
+}
+tr:hover {
+            background-color:rgb(189, 189, 184);
+        }
+
+
+    td.verdict-cell.accepted {
+            color: #38a169;
+        }
+    td.verdict-cell:not(.accepted) {
+            color: #e53e3e;
+        }
+
+
         </style>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,8 +84,7 @@
         <div class="navbar">
           <a href="{% url 'home' %}">CodeScaper</a>
           <a href="#">{{user.username}}</a>
-          <h2>Outputs</h2>
-          <a href = "/output">Submissions</a>
+          <a href = "{% url 'output' %}">Submissions</a>
           <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
         </div>
         <div class = "output_table">

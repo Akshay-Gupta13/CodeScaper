@@ -59,19 +59,15 @@ def  run_code(language, input_data):
         os.chdir(curr_dir)
         return f"Error occurred during execution: {e}"
 
-def check_tc(tc, language):
-    flag = 1
-    j = 0
-    idx = 0
-    for i in tc:
-        j+=1
-        result = run_code(language,str(i.tc_input).replace(" ","\n"))
-        result=result.replace("\n","").replace(" ","")
 
-        if result != i.tc_output:
-            flag = 0
-            idx = j
-    if flag == 0:
-        return f"Wrong Answer on tc: {idx}"
-    else:
-        return "Accepted" 
+def check_tc(tc, language):
+    for idx, test_case in enumerate(tc, 1):
+        formatted_input = str(test_case.tc_input).replace(" ", "\n")
+        expected_output = test_case.tc_output.strip()
+        actual_output = run_code(language, formatted_input).strip()
+
+        if actual_output != expected_output:
+            return f"Wrong Answer on test case {idx}"
+
+    return "Accepted"
+ 
