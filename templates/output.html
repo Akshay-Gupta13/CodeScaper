@@ -84,7 +84,7 @@ tr:hover {
         <div class="navbar">
           <a href="{% url 'home' %}">CodeScaper</a>
           <a href="#">{{user.username}}</a>
-          <a href = "{% url 'output' %}">Submissions</a>
+          <a href = "{% url 'submissions' %}">Submissions</a>
           <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
         </div>
         <div class = "output_table">
@@ -97,17 +97,17 @@ tr:hover {
             <th>Submission time</th>
 
         </tr>
-        {for out in  output_list reversed %}
+        {for sub in  submission_list reversed %}
         <tr>
-            <td> {{out.username}}</td>
-            <td> {{out.problem_name}}</td>
-            <td> {{out.time}}</td>
+            <td> {{sub.username}}</td>
+            <td> {{sub.problem_name}}</td>
+            <td> {{sub.time}}</td>
             <td>
-                {% if out.language =="cpp" %}
+                {% if sub.language =="cpp" %}
                 C++
-                {% if out.language =="c" %}
+                {% if sub.language =="c" %}
                 C
-                {% if out.language =="py" %}
+                {% if sub.language =="py" %}
                 Python
                 {% else %}
                 N/A

@@ -49,8 +49,10 @@
       .selected-question{
         display: block;
         text-align: center;
-      padding: 8px;
+      padding: 4px;
+      /* padding-bottom: 0px; */
       font-weight: bold;
+      text-decoration: underline;
       }
       .main_data {
       display: flex;
@@ -148,7 +150,7 @@
       <div class="navbar">
         <a href="{% url 'home' %}">CodeScaper</a>
         <a href="#">{{user.username}}</a>
-        <a href = "#">Submissions</a>
+        <a href = "{% url 'submissions' %}">Submissions</a>
         <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
       </div>
         <h2 class="selected-question">{{ question.problem_id }}-{{ question.problem_name }}  ({{ question.problem_difficulty}})</h2>
