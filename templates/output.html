@@ -37,14 +37,14 @@
       }
          
       .output_table{
-        padding: 16px;
+        padding: 20px;
         display: flex;
         justify-content: center;
       }
       table, th, td {
         border: 1px solid black;
         border-collapse: collapse;
-        padding: 5px;
+        padding: 10px;
       }
 
 /* alternate lines ka shade change karna hai */
@@ -81,43 +81,47 @@ tr:hover {
         <link rel="stylesheet" href="">
     </head>
     <body>
-        <div class="navbar">
-          <a href="{% url 'home' %}">CodeScaper</a>
-          <a href="#">{{user.username}}</a>
-          <a href = "{% url 'submissions' %}">Submissions</a>
-          <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
-        </div>
-        <div class = "output_table">
-      <table>
-        <tr>
+      <div class="navbar">
+        <a href="{% url 'home' %}">CodeScaper</a>
+        <a href="#">{{ user.username }}</a>
+        <a href="{% url 'submissions' %}">Submissions</a>
+        <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+      </div>
+      
+      <div class="output_table">
+        <table>
+          <tr>
             <th>User Name</th>
             <th>Problem Name</th>
             <th>Language</th>
             <th>Verdict</th>
             <th>Submission time</th>
-
-        </tr>
-        {for sub in  submission_list reversed %}
-        <tr>
-            <td> {{sub.username}}</td>
-            <td> {{sub.problem_name}}</td>
-            <td> {{sub.time}}</td>
+          </tr>
+      
+          {% for sub in submission_list reversed %}
+          <tr>
+            <td>{{ sub.username }}</td>
+            <td>{{ sub.problem_name }}</td>
             <td>
-                {% if sub.language =="cpp" %}
+              {% if sub.language == "cpp" %}
                 C++
-                {% if sub.language =="c" %}
+              {% elif sub.language == "c" %}
                 C
-                {% if sub.language =="py" %}
+              {% elif sub.language == "py" %}
                 Python
-                {% else %}
+              {% else %}
                 N/A
-                {% endif %}
+              {% endif %}
             </td>
-            <td class="verdict-cell {% if sub.verdict == 'Accepted' %}accepted{% endif %}">{{ sub.verdict }}</td>
-        </tr>
-      {% endfor %}
-      </table>
-        </div>
+            <td class="verdict-cell {% if sub.verdict == 'Accepted' %}accepted{% else %}not-accepted{% endif %}">
+              {{ sub.verdict }}
+            </td>
+            <td>{{ sub.time }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      
         <script src="" async defer></script>
     </body>
 </html>
