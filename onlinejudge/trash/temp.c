@@ -3,9 +3,9 @@ using namespace std;
 
 int main(){
  
-int a, b;
-cin >> a >> b;
-cout << a+b << endl;
+int a1, b1;
+cin >> a1 >> b1;
+cout << a1+b1 << endl;
 
 return 0;
 }
