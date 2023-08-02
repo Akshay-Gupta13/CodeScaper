@@ -62,8 +62,8 @@ def verdict(request,problem_id):
         return JsonResponse({"message": "Invalid Request"}, status=400)
   
 def sub(request):
-    submissions_list = submissions.objects.all()
-    return render(request,'output.html',{'submissions_list':submissions_list})
+    output_list = submissions.objects.all()
+    return render(request,'output.html',{'output_list':output_list})
 
 def customTc(request):
     if request.method == 'POST':
