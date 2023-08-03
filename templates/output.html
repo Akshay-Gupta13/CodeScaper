@@ -9,76 +9,119 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Submission-Lists</title>
         <style>
-             body {
-          font-family: Arial, sans-serif;
-          margin: 0;
-          padding: 0;
-          background:beige;
-        }
+          body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: beige;
+          }
         
-        .navbar {
-        background-color: rgb(33, 51, 99);
-        overflow: hidden;
-        color: rgb(211, 208, 79);
-        border: 1px solid  rgb(33, 51, 99);
-      }
-      .navbar a {
-        justify-content: center;
-        float: left;
-        padding: 12px 45px;
-        text-decoration:wavy;
-        font-size: 24px;
-        color: antiquewhite;
-      }
-      .navbar a:hover {
-        color: rgb(239, 98, 98);
-        border-radius: 10px;
-        border-collapse: collapse;
-        box-shadow: 3px rgb(70, 114, 121);
-      }
-         
-      .output_table{
-        padding: 30px;
-        display: flex;
-        justify-content: center;
-      }
-      table, th, td {
-        border: 1px solid black;
-        border-collapse: collapse;
-        padding-left: 25px;
-        padding-right: 25px;
-        padding-top: 4px;
-        padding-bottom: 4px; 
-
-      }
-
-/* alternate lines ka shade change karna hai */
-  /* Apply the base styling to all table rows */
-tr {
-  background-color: #f2f2f2; /* Set the default background color for all rows */
-}
-
-/* Apply a different background color to odd rows */
-tr:nth-child(odd) {
-  background-color: #c7c2c2; /* Change this color to the desired color for odd rows */
-}
-
-/* Apply a different background color to even rows */
-tr:nth-child(even) {
-  background-color: #f9f9f9; /* Change this color to the desired color for even rows */
-}
-tr:hover {
-            background-color:rgb(166, 166, 161);
-        }
-
-
-    td.verdict-cell.accepted {
+          .navbar {
+            background-color: rgb(33, 51, 99);
+            overflow: hidden;
+            border: 1px solid rgb(33, 51, 99);
+          }
+        
+          .navbar a {
+            justify-content: center;
+            float: left;
+            padding: 12px 20px;
+            text-decoration: wavy;
+            font-size: 18px;
+            color: antiquewhite;
+          }
+        
+          .navbar a:hover {
+            color: rgb(239, 98, 98);
+            border-radius: 10px;
+            border-collapse: collapse;
+            box-shadow: 3px rgb(70, 114, 121);
+          }
+        
+          .output_table {
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            overflow-x: auto;
+          }
+        
+          table {
+            width: 100%;
+            border: 1px solid black;
+            border-collapse: collapse;
+          }
+        
+          th,
+          td {
+            border: 1px solid black;
+            padding: 10px;
+          }
+        
+          /* alternate lines ka shade change karna hai */
+          /* Apply the base styling to all table rows */
+          tr {
+            background-color: #f2f2f2; /* Set the default background color for all rows */
+          }
+        
+          /* Apply a different background color to odd rows */
+          tr:nth-child(odd) {
+            background-color: #c7c2c2; /* Change this color to the desired color for odd rows */
+          }
+        
+          /* Apply a different background color to even rows */
+          tr:nth-child(even) {
+            background-color: #f9f9f9; /* Change this color to the desired color for even rows */
+          }
+        
+          tr:hover {
+            background-color: rgb(166, 166, 161);
+          }
+        
+          td.verdict-cell.accepted {
             color: green;
-        }
-    td.verdict-cell:not(.accepted) {
+          }
+        
+          td.verdict-cell:not(.accepted) {
             color: red;
-        }
-
+          }
+        
+          /* Media queries for responsiveness */
+        
+          /* For screens smaller than 768px */
+          @media (max-width: 768px) {
+            .navbar a {
+              padding: 10px 15px;
+              font-size: 16px;
+            }
+        
+            .output_table {
+              padding: 5px;
+            }
+        
+            th,
+            td {
+              padding: 8px;
+            }
+          }
+        
+          /* For screens smaller than 480px */
+          @media (max-width: 480px) {
+            .navbar a {
+              padding: 8px 10px;
+              font-size: 14px;
+            }
+        
+            .output_table {
+              padding: 3px;
+            }
+        
+            th,
+            td {
+              padding: 6px;
+            }
+          }
+        </style>
+        
 
         </style>
         <meta name="description" content="">

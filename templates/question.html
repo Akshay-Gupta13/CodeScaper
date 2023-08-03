@@ -13,145 +13,200 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/hint/anyword-hint.min.js"></script>
     <title>CodeScaper-problem</title>
     <style>
-        body {
-          font-family: Arial, sans-serif;
-          margin: 0;
-          padding: 0;
-          background:beige;
-        }
-        
-        .navbar {
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: beige;
+      }
+    
+      .navbar {
         background-color: rgb(33, 51, 99);
         overflow: hidden;
-        color: rgb(211, 208, 79);
-        border: 1px solid  rgb(33, 51, 99);
+        border: 1px solid rgb(33, 51, 99);
       }
+    
       .navbar a {
         justify-content: center;
         float: left;
-        padding: 12px 45px;
-        text-decoration:wavy;
-        font-size: 24px;
+        padding: 12px 20px;
+        text-decoration: wavy;
+        font-size: 18px;
         color: antiquewhite;
       }
+    
       .navbar a:hover {
         color: rgb(239, 98, 98);
         border-radius: 10px;
         border-collapse: collapse;
         box-shadow: 3px rgb(70, 114, 121);
       }
-          /* transform: translateY(50%); */
-          /* .marker{ */
-            /* color:aliceblue;
-            background-color: black;
-            
-          } */
-      .selected-question{
-        
+    
+      .selected-question {
         text-align: center;
-      padding: 4px;
-      /* padding-bottom: 0px; */
-      font-weight: bold;
-      text-decoration: underline;
+        padding: 4px;
+        font-weight: bold;
+        text-decoration: underline;
       }
+    
       .main_data {
-      display: flex;
-      justify-content: space-between;
-      padding: 20px;
-     }
-     .Problem-description{ 
-        flex:1;
-        justify-content: left;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 20px;
+      }
+    
+      .Problem-description {
+        flex: 1;
         border: 1px solid black;
         padding: 15px;
-        max-width:50%;
-        min-width: 50%;
-          }
-          
+        max-width: 100%;
+        /* Adjust min-width as needed */
+        min-width: 300px;
+      }
+    
       .compiler-container {
-      flex: 1;
-      border: 1px solid black;
-      padding: 20px;
-    }
+        flex: 1;
+        border: 1px solid black;
+        padding: 20px;
+      }
     
-    .compiler-container select{
-      width: 10%;
-      align-items: center;
-      /* color: #478e9a; */
-    } 
-    .compiler-container textarea
-     {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 8px;
-    }
-    .compiler-container button{
-       width: 20%;
-       
-    }
-    .outputTextarea {
-      position: relative; 
-      width: 30%;
-      height: 70px;
-      resize: vertical;  
-      padding: 8px;
-      /* padding-left: 5px; */
-      /* margin-top: 8px; */
-      background-color: whitesmoke;
-      border: 2px solid black;
-      /* border-radius: 1px; */
-    } 
-    .customTc-container {
-      display: flex;
-      padding-left: 5 px;
-      padding-right: 5 px;
-      position: relative;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 5px;
-      /* border-radius: 5px; */
-    }
+      .compiler-container select {
+        width: 25%;
+        padding: 8px;
+        margin-bottom: 8px;
+        /* background-color:rgb(33, 51, 99) ; */
+      }
+      .compiler-container select:hover{
+        background-color: rgb(239, 98, 98);
+      }
     
-    .run-code-btn {
-      background-color: rgb(29, 91, 121);
-      color: antiquewhite;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+      .compiler-container textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 8px;
+      }
     
-    .run-code-btn:hover {
-      background-color: rgb(33, 51, 99);
-      color:rgb(239, 98, 98) ;
-    }
-  .Verdict {
-      text-align: center;
-      padding: 15px;
-      font-weight: bold;
-      background-color:rgb(33, 51, 99);
-      color: rgb(239, 98, 98);
-      margin-top: 8px;
-    }
+      .compiler-container button {
+        max-width: 40%;
+        min-width: 25%;
+        padding: 10px 20px;
+        text-align: center;
+        border: none;
+        /* border-radius: 5px; */
+        cursor: pointer;
+        background-color: rgb(29, 91, 121);
+        color: antiquewhite;
+      }
     
-    .verdict-result {
-      padding: 10px;
-      margin: 15px auto;
-      max-width: 400px;
-      /* max-height:fit-content ; */
-      border: 3px solid rgb(70, 139, 151);
-      border-radius: 5px;
-      background-color: rgb(255, 255, 255);
-    }
+      .outputTextarea {
+        position: relative;
+        width: 32%;
+        height: 70px;
+        resize: vertical;
+        padding: 8px;
+        background-color: whitesmoke;
+        border: 2px solid black;
+      }
     
-    .verdict-result.accepted {
-      color: green;
-    }
+      .customTc-container {
+        display: flex;
+        padding-left: 5px;
+        padding-right: 5px;
+        position: relative;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 5px;
+      }
     
-    .verdict-result.not-accepted {
-      color: red;
-    } 
-      </style>
+      .run-code-btn {
+        background-color: rgb(29, 91, 121);
+        color: antiquewhite;
+
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    
+      .run-code-btn:hover {
+        background-color: rgb(33, 51, 99);
+        color: rgb(239, 98, 98);
+      }
+    
+      .Verdict {
+        text-align: center;
+        padding: 15px;
+        font-weight: bold;
+        background-color: rgb(33, 51, 99);
+        color: rgb(239, 98, 98);
+        margin-top: 8px;
+      }
+    
+      .verdict-result {
+        padding: 10px;
+        margin: 15px auto;
+        max-width: 400px;
+        border: 3px solid rgb(70, 139, 151);
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255);
+      }
+    
+      .verdict-result.accepted {
+        color: green;
+      }
+    
+      .verdict-result.not-accepted {
+        color: red;
+      }
+    
+      /* Media queries for responsiveness */
+    
+      /* For screens smaller than 768px */
+      @media (max-width: 768px) {
+        .main_data {
+          flex-direction: column;
+          align-items: center;
+        }
+    
+        .Problem-description,
+        .compiler-container {
+          max-width: 100%;
+          min-width: 100%;
+        }
+      }
+    
+      /* For screens smaller than 480px */
+      @media (max-width: 480px) {
+        .navbar a {
+          padding: 10px 15px;
+          font-size: 16px;
+        }
+    
+        .output_table {
+          padding: 5px;
+        }
+    
+        th,
+        td {
+          padding: 8px;
+        }
+    
+        .main_data {
+          padding: 10px;
+        }
+    
+        .Problem-description,
+        .compiler-container {
+          padding: 10px;
+        }
+    
+        .compiler-container button {
+          padding: 8px 16px;
+        }
+      }
+    </style>
+    
     </head>
     <body> 
       <div class="navbar">
