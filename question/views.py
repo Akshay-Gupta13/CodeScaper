@@ -17,12 +17,12 @@ def HomePage(request):
     question = Problem.objects.all()
     return render(request,'home.html',{'question':question})
 
-#############################################################
+##############################################################################################
 @login_required(login_url='login')
 def ProblemPage(request, problem_id):
     question = Problem.objects.get(pk=problem_id)
     return render(request,'question.html',{'question':question})
-#############################################################
+##############################################################################################
 
 @login_required(login_url='login')
 def verdict(request,problem_id):
@@ -60,11 +60,13 @@ def verdict(request,problem_id):
             return JsonResponse({"message": answer}, status=200)
     else:
         return JsonResponse({"message": "Invalid Request"}, status=400)
-  
+############################################################################################################
+@login_required(login_url='login')  
 def sub(request):
     output_list = submissions.objects.all()
     return render(request,'output.html',{'output_list':output_list})
-
+############################################################################################################
+@login_required(login_url='login')
 def customTc(request):
     if request.method == 'POST':
         payload = json.loads(request.body)

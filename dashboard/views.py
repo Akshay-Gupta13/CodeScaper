@@ -9,7 +9,7 @@ from django.contrib import messages
 def HomePage(request):
     return render (request, 'home.html')
 
-#############################################################
+##############################################################################
 
 def SignupPage(request):
     if request.method=='POST':
@@ -42,7 +42,7 @@ def SignupPage(request):
     else:
         return render(request,'signup.html')
 
-#############################################################
+##########################################################################################################
 
 def LoginPage(request):
      if request.method=='POST':
@@ -60,9 +60,9 @@ def LoginPage(request):
 
      else:
          return render(request,'login.html')
-#############################################################
+############################################################################################
 
 def LogoutPage(request):
     logout(request)
     return redirect('login')
-#############################################################
+############################################################################################
