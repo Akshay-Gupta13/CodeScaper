@@ -274,6 +274,8 @@ function compileCode(){
         })
         .then(response => response.json())
         .then(data => {
+          // document.getElementById("Verdict").classList.remove("accepted");
+          // document.getElementById("Verdict").classList.remove("not-accepted");
           if(data.message == "Accepted"){
             document.getElementById("Verdict").classList.add("accepted");
           }
