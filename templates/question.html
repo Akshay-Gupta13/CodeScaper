@@ -53,7 +53,10 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        padding: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 5px;
+        padding-bottom: 5px;
       }
     
       .Problem-description {
@@ -129,7 +132,7 @@
         cursor: pointer;
         font-weight: 500;
       }
-    
+  
       .run-code-btn:hover {
         background-color: rgb(33, 51, 99);
         color: rgb(239, 98, 98);
@@ -224,8 +227,10 @@
     <div class="Problem-description">
       {{ question.problem_description }}
       <div class="customTc-container">
+        <h4>Custom Input</h4>
         <textarea name="customTc" id="customTc" cols="30" rows="5"></textarea>
         <br>
+        <h4>Output</h4>
         <div class="outputTextarea" id="outputTextarea"></div>
         <br>
         <button class="run-code-btn"onclick="updateData()">Run Code</button>
