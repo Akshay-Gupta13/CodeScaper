@@ -2,10 +2,10 @@
 FROM python:3.8
 
 # Set environment variables for PostgreSQL
-ENV POSTGRES_DB mydb
-ENV POSTGRES_USER myuser
-ENV POSTGRES_PASSWORD mypassword
-ENV POSTGRES_HOST postgres
+ENV POSTGRES_DB onlinejudge
+ENV POSTGRES_USER postgres
+ENV POSTGRES_PASSWORD 1234
+ENV POSTGRES_HOST localhost
 ENV POSTGRES_PORT 5432
 
 # Set environment variables for Django
