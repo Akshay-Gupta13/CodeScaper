@@ -137,43 +137,64 @@
         <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
       </div>
       
-      <div class="output_table">
+      <div class="output_table"> 
         <table>
-          <tr>
-            <th>User Name</th>
-            <th>Problem Name</th>
-            <th>Language</th>
-            <th>Verdict</th>
-            <th>Submission Date/time</th>
-            <!-- <th>Code</th> -->
-
-          </tr>
-      <!-- most recent submission on top or check by date -->
-          {% for out in output_list reversed %}
-          <tr>
-            <td>{{ out.user_id }}</td>
-            <td>{{ out.problem_name }}</td>
-            <td>
-              {% if out.language == "cpp" %}
-                C++
-              {% elif out.language == "c" %}
-                C
-              {% elif out.language == "py" %}
-                Python
-              {% else %}
-                N/A
-              {% endif %}
-            </td>
-            <td class="verdict-cell {% if out.verdict == 'Accepted' %}accepted{% else %}not-accepted{% endif %}">
-              {{ out.verdict }}
-            </td>
-            <td>{{ out.time }}</td>
-            <!-- <td>{{ out.code }}</td> -->
-          </tr>
-          {% endfor %}
+            <tr>
+                <th>User Name</th>
+                <th>Problem Name</th>
+                <th>Language</th>
+                <th>Verdict</th>
+                <th>Submission Date/time</th> 
+                <!-- <th>Code</th>  -->
+            </tr>
+            <!-- most recent submission on top or check by date -->
+            {% for out in output_list reversed %}
+            <tr>
+                <td>{{ out.user_id }}</td>
+                <td>{{ out.problem_name }}</td>
+                <td>
+                    {% if out.language == "cpp" %}
+                        C++
+                    {% elif out.language == "c" %}
+                         C
+                     {% elif out.language == "py" %}
+                        Python
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td class="verdict-cell {% if out.verdict == 'Accepted' %}accepted{% else %}not-accepted{% endif %}">
+                    {{ out.verdict }}
+                  </td>
+                     <td>{{ out.time }}</td>
+                <!-- <td>{{ out.code }}</td>  -->
+                <!-- can store output in a temp file like it stored in codeforces -->
+            </tr>
+            {% endfor %}
         </table>
-      </div>
+    </div>
+    
+    <div class="pagination">
+        <span class="step-links">
+            {% if output_list.has_previous %}
+            <a href="?page=1">&laquo;First</a>
+            <a href="?page={{ output_list.previous_page_number }}">Previous</a>
+             {% endif %}
+           
+            <span class="current">
+                Page {{ output_list.number }} of {{ output_list.paginator.num_pages }}.
+            </span>
+            {% if output_list.has_next %}
+           
+            <a href="?page={{ output_list.next_page_number }}">Next</a>
+            <a href="?page={{ output_list.paginator.num_pages }}">Last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    
+
       
+        
         <script src="" async defer></script>
     </body>
 </html>

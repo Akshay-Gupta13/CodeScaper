@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from pathlib import Path
 from django.http import JsonResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import json
 import os
 
@@ -64,6 +65,16 @@ def verdict(request,problem_id):
 @login_required(login_url='login')  
 def sub(request):
     output_list = submissions.objects.all()
+    # need to define pagination
+    items_per_page = 3
+    paginator = Paginator(output_list, items_per_page)
+    page = request.GET.get('page')
+    try:
+        output_list = paginator.page(page)
+    except PageNotAnInteger:
+        output_list = paginator.page(1)
+    except EmptyPage:
+        output_list = paginator.page(paginator.num_pages)
     return render(request,'output.html',{'output_list':output_list})
 ############################################################################################################
 @login_required(login_url='login')

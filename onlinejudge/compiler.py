@@ -65,7 +65,7 @@ def check_tc(tc, language):
         formatted_input = str(test_case.tc_input).replace(" ", "\n")
         expected_output = test_case.tc_output.strip()
         actual_output = run_code(language, formatted_input).strip()
-
+   
         if actual_output != expected_output:
             return f"Wrong Answer on test case {idx}"
 
