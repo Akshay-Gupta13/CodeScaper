@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Submission-Lists</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: whitesmoke;
+          }
+        
+          .navbar {
+            background-color: rgb(33, 51, 99);
+            overflow: hidden;
+            border: 1px solid rgb(33, 51, 99);
+          }
+        
+          .navbar a {
+            justify-content: center;
+            float: left;
+            padding: 12px 20px;
+            text-decoration: wavy;
+            font-size: 18px;
+            color: antiquewhite;
+          }
+        
+          .navbar a:hover {
+            color: rgb(239, 98, 98);
+            border-radius: 10px;
+            border-collapse: collapse;
+            box-shadow: 3px rgb(70, 114, 121);
+          }
+        
+          .output_table {
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            overflow-x: auto;
+          }
+        
+          table {
+            width: 100%;
+            border: 1px solid black;
+            border-collapse: collapse;
+            min-width: 50%;
+          }
+        
+          th,
+          td {
+            border: 1px solid black;
+            padding: 10px;
+          }
+        
+          /* alternate lines ka shade change karna hai */
+          /* Apply the base styling to all table rows */
+          tr {
+            background-color: #f2f2f2; /* Set the default background color for all rows */
+          }
+        
+          /* Apply a different background color to odd rows */
+          tr:nth-child(odd) {
+            background-color: #c7c2c2; /* Change this color to the desired color for odd rows */
+          }
+        
+          /* Apply a different background color to even rows */
+          tr:nth-child(even) {
+            background-color: #f9f9f9; /* Change this color to the desired color for even rows */
+          }
+        
+          tr:hover {
+            background-color: rgb(166, 166, 161);
+          }
+        
+          td.verdict-cell.accepted {
+            color: green;
+          }
+        
+          td.verdict-cell:not(.accepted) {
+            color: red;
+          }
+        
+          /* Media queries for responsiveness */
+        
+          /* For screens smaller than 768px */
+          @media (max-width: 768px) {
+            .navbar a {
+              padding: 10px 15px;
+              font-size: 16px;
+            }
+        
+            .output_table {
+              padding: 5px;
+            }
+        
+            th,
+            td {
+              padding: 8px;
+            }
+          }
+        
+          /* For screens smaller than 480px */
+          @media (max-width: 480px) {
+            .navbar a {
+              padding: 8px 10px;
+              font-size: 14px;
+            }
+        
+            .output_table {
+              padding: 3px;
+            }
+        
+            th,
+            td {
+              padding: 6px;
+            }
+          }
+        </style>
+        
+
+        </style>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+      <div class="navbar">
+        <a href="{% url 'home' %}">CodeScaper</a>
+        <a href="#">{{ user.username }}</a>
+        <a href="{% url 'submissions' %}">Submissions</a>
+        <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+      </div>
+      
+      <div class="output_table"> 
+        <table>
+            <tr>
+                <th>User Name</th>
+                <th>Problem Name</th>
+                <th>Language</th>
+                <th>Verdict</th>
+                <th>Submission Date/time</th> 
+                <!-- <th>Code</th>  -->
+            </tr>
+            <!-- most recent submission on top or check by date -->
+            {% for out in output_list reversed %}
+            <tr>
+                <td>{{ out.user_id }}</td>
+                <td>{{ out.problem_name }}</td>
+                <td>
+                    {% if out.language == "cpp" %}
+                        C++
+                    {% elif out.language == "c" %}
+                         C
+                     {% elif out.language == "py" %}
+                        Python
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td class="verdict-cell {% if out.verdict == 'Accepted' %}accepted{% else %}not-accepted{% endif %}">
+                    {{ out.verdict }}
+                  </td>
+                     <td>{{ out.time }}</td>
+                <!-- <td>{{ out.code }}</td>  -->
+                <!-- can store output in a temp file like it stored in codeforces -->
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    
+    <div class="pagination">
+        <span class="step-links">
+            {% if output_list.has_previous %}
+            <a href="?page=1">&laquo;First</a>
+            <a href="?page={{ output_list.previous_page_number }}">Previous</a>
+             {% endif %}
+           
+            <span class="current">
+                Page {{ output_list.number }} of {{ output_list.paginator.num_pages }}.
+            </span>
+            {% if output_list.has_next %}
+           
+            <a href="?page={{ output_list.next_page_number }}">Next</a>
+            <a href="?page={{ output_list.paginator.num_pages }}">Last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    
+
+      
+        
+        <script src="" async defer></script>
+    </body>
+</html>

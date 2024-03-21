@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/hint/show-hint.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/hint/show-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/clike/clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/hint/anyword-hint.min.js"></script>
+    <title>CodeScaper-problem</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: whitesmoke;
+      }
+    
+      .navbar {
+        background-color: rgb(33, 51, 99);
+        overflow: hidden;
+        border: 1px solid rgb(33, 51, 99);
+      }
+    
+      .navbar a {
+        justify-content: center;
+        float: left;
+        padding: 12px 20px;
+        text-decoration: wavy;
+        font-size: 18px;
+        color: antiquewhite;
+      }
+    
+      .navbar a:hover {
+        color: rgb(239, 98, 98);
+        border-radius: 10px;
+        border-collapse: collapse;
+        box-shadow: 3px rgb(70, 114, 121);
+      }
+    
+      .selected-question {
+        text-align: center;
+        padding: 4px;
+        font-weight: bold;
+        text-decoration: underline;
+      }
+    
+      .main_data {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+    
+      .Problem-description {
+        flex: 1;
+        border: 1px solid black;
+        padding: 15px;
+        max-width: 100%;
+        /* Adjust min-width as needed */
+        min-width: 300px;
+      }
+    
+      .compiler-container {
+        flex: 1;
+        border: 1px solid black;
+        padding: 20px;
+      }
+      .main_data h4{
+        padding: 2px;
+        border: 2px solid black;
+        border-radius: 4px;
+        background-color: whitesmoke;
+      }
+    
+      .compiler-container select {
+        width: 25%;
+        padding: 8px;
+        margin-bottom: 8px;
+        /* background-color:rgb(33, 51, 99) ; */
+      }
+      .compiler-container select:hover{
+        background-color: rgb(239, 98, 98);
+      }
+    
+      .compiler-container textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 8px;
+      }
+    
+      .compiler-container button {
+        max-width: 40%;
+        min-width: 25%;
+        padding: 10px 20px;
+        text-align: center;
+        border: none;
+        /* border-radius: 5px; */
+        cursor: pointer;
+        background-color: rgb(29, 91, 121);
+        color: antiquewhite;
+      }
+    
+      .outputTextarea {
+        position: relative;
+        width: 32%;
+        height: 70px;
+        resize: vertical;
+        padding: 8px;
+        background-color: whitesmoke;
+        border: 2px solid black;
+      }
+    
+      .customTc-container {
+        display: flex;
+        padding-left: 5px;
+        padding-right: 5px;
+        position: relative;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 5px;
+      }
+    
+      .run-code-btn {
+        background-color: rgb(29, 91, 121);
+        color: antiquewhite;
+
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 500;
+      }
+  
+      .run-code-btn:hover {
+        background-color: rgb(33, 51, 99);
+        color: rgb(239, 98, 98);
+      }
+    
+      .Verdict {
+        align-self: start;
+        text-align: center;
+        /* max-width: 400px; */
+        /* max-height: 500px; */
+        padding: 15px;
+        font-weight: bold;
+        background-color: rgb(33, 51, 99);
+        color: rgb(239, 98, 98);
+        margin-top: 8px;
+      }
+    
+      .verdict-result {
+        padding: 10px;
+        margin: 15px auto;
+        max-width: 400px;
+        border: 3px solid rgb(70, 139, 151);
+        border-radius: 5px;
+        background-color:snow;
+      }
+    
+      .verdict-result.accepted {
+        color: green;
+      }
+    
+      .verdict-result.not-accepted {
+        color: red;
+      }
+    
+      /* Media queries for responsiveness */
+    
+      /* For screens smaller than 768px */
+      @media (max-width: 768px) {
+        .main_data {
+          flex-direction: column;
+          align-items: center;
+        }
+    
+        .Problem-description,
+        .compiler-container {
+          max-width: 100%;
+          min-width: 100%;
+        }
+      }
+    
+      /* For screens smaller than 480px */
+      @media (max-width: 480px) {
+        .navbar a {
+          padding: 10px 15px;
+          font-size: 16px;
+        }
+    
+        .output_table {
+          padding: 5px;
+        }
+    
+        th,
+        td {
+          padding: 8px;
+        }
+    
+        .main_data {
+          padding: 10px;
+        }
+    
+        .Problem-description,
+        .compiler-container {
+          padding: 10px;
+        }
+    
+        .compiler-container button {
+          padding: 8px 16px;
+        }
+      }
+    </style>
+    
+    </head>
+    <body> 
+      <div class="navbar">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="#">{{user.username}}</a>
+        <a href = "{% url 'submissions' %}">Submissions</a>
+        <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+      </div>
+        <h2 class="selected-question">{{ question.problem_id }}-{{ question.problem_name }}  ({{ question.problem_difficulty}})</h2>
+  <div class="main_data">
+    <div class="Problem-description">
+      {{ question.problem_description }}
+      <div class="customTc-container">
+        <h4>Custom Input</h4>
+        <textarea name="customTc" id="customTc" cols="30" rows="5"></textarea>
+        <br>
+        <h4>Output</h4>
+        <div class="outputTextarea" id="outputTextarea"></div>
+        <br>
+        <button class="run-code-btn"onclick="updateData()">Run Code</button>
+      </div>
+    </div>
+    <div class="compiler-container">
+      <label for ="language">Language</label>
+      <select name ="language" id="language" >
+        <option value="c">C</option>
+        <option value="cpp">C++</option>
+        <option value="py">Python</option>
+      </select>
+      <br>
+      <div class="time-limit"> Time limit:{{question.problem_timelimit}} seconds  Memory limit:{{question.problem_memorylimit}} MB</div>
+      <br>
+      <label for="code">Code goes here!</label>
+      <br>
+      <textarea name="code" id="code" cols="50" rows="30" required></textarea>
+      <br>
+      <button class="run-code-btn" onclick ="compileCode()">Submit</button>
+    </div>
+  </div> 
+  <div class="Verdict">
+    <h2>Verdict</h2>
+    <div class="verdict-result" id="Verdict">
+
+    </div>
+  </div>
+                     
+  <script>       
+function compileCode(){
+      var csrf_token = "{{ csrf_token }}";
+      const language = document.getElementById("language").value;
+      const user_code = document.getElementById("code").value;
+      const payload = {
+        language : language,
+        code : user_code
+      }
+      fetch('{{question.problem_id}}/verdict', {
+          method: 'POST',
+          body: JSON.stringify(payload),
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrf_token
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          // document.getElementById("Verdict").classList.remove("accepted");
+          // document.getElementById("Verdict").classList.remove("not-accepted");
+          if(data.message == "Accepted"){
+            document.getElementById("Verdict").classList.add("accepted");
+          }
+          else{
+            document.getElementById("Verdict").classList.add("not-accepted");
+          }
+          const dataContainer = document.getElementById('Verdict');
+          // Update the content inside the data container
+          dataContainer.innerHTML = `
+            <p>${data.message}</p>
+          `;
+        })
+        }
+
+function updateData() {
+      var csrf_token = "{{ csrf_token }}";
+      const user_tc = document.getElementById("customTc").value;
+      const user_code = document.getElementById("code").value;
+      console.log(user_code)
+      const language = document.getElementById("language").value;
+      const payload = {
+        user_tc: user_tc,
+        user_code: user_code,
+        language: language
+        
+      };
+      
+      console.log(payload);
+      try {
+        fetch('customTc', {
+          method: 'POST',
+          body: JSON.stringify(payload),
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrf_token
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          const dataContainer = document.getElementById('outputTextarea');
+          // Update the content inside the data container
+          dataContainer.innerHTML = `
+            <p>${data.message}</p>
+          `;
+        })
+        .then
+        .catch(error => console.error('Error fetching data:', error));
+      } catch(err){
+        console.log(err);
+      }
+  }
+  </script>      
+</body>
+</html>

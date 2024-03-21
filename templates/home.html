@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>CodeScaper</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: whitesmoke;
+      }
+    
+      .navbar {
+        background-color: rgb(33, 51, 99);
+        overflow: hidden;
+        border: 1px solid rgb(33, 51, 99);
+      }
+    
+      .navbar a {
+        justify-content: center;
+        float: left;
+        padding: 12px 20px;
+        text-decoration: wavy;
+        font-size: 18px;
+        color: antiquewhite;
+      }
+    
+      .navbar a:hover {
+        color: rgb(239, 98, 98);
+        border-radius: 10px;
+        border-collapse: collapse;
+        box-shadow: 3px rgb(70, 114, 121);
+        animation-timeline:inherit;
+      }
+    
+      .question_index {
+        display: flex;
+        justify-content: left;
+        padding-left: 55px;
+        padding-top: 10px;
+        list-style-type: none;
+        font-size: larger;
+        font-weight: bold;
+      }
+    
+      .question-list li {
+        display: flex;
+        align-items: normal;
+        justify-content: left;
+        font-size: large;
+        padding-left: 20px;
+        margin: 15px;
+        margin-bottom: 10px;
+        border: 2px solid rgb(33, 51, 99);
+        border-radius: 5px;
+        max-width: 25%;
+        background-color: wheat;
+      }
+    
+      .question-list li a {
+        text-decoration: none;
+        color: rgb(0, 0, 0);
+        
+      }
+    
+      .question-list li a:hover {
+        text-decoration: underline;
+        color: rgb(239, 98, 98);
+      }
+    
+      /* Media queries for responsiveness */
+    
+      /* For screens smaller than 768px */
+      @media (max-width: 768px) {
+        .navbar a {
+          padding: 12px 10px;
+          font-size: 16px;
+        }
+    
+        .question_index {
+          padding-left: 10px;
+        }
+    
+        .question-list li {
+          padding-left: 10px;
+          max-width: 100%;
+        }
+      }
+    
+      /* For screens smaller than 480px */
+      @media (max-width: 480px) {
+        .navbar a {
+          padding: 10px 5px;
+          font-size: 14px;
+        }
+    
+        .question-list li {
+          padding-left: 5px;
+          max-width: 100%;
+        }
+      }
+    </style>
+    
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="#">upgrade your browser</a> to improve your experience.
+      </p>
+    <![endif]-->
+    <div class="navbar">
+      <a href="{% url 'home' %}">CodeScaper</a>
+      <a href="#"> {{ user.username }}</a>
+      <a href = "{% url 'submissions' %}">Submissions</a>
+      <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+  
+    </div>
+ {% csrf_token %}
+    <div class="question_index">Problem-List</div>
+   <div class="question_list">
+    <div>
+      <ul class ="question-list">
+
+        {% for q in question %}
+        <li><a href="problem/{{ q.problem_id }}">{{ q.problem_id }} {{ q.problem_name }}  ({{ q.problem_difficulty}}) </a></li>
+        {% endfor %}
+      </ul>
+    </div>
+   </div>
+
+       <script src="" async defer></script>
+  </body>
+</html>

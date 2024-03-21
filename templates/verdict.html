@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verdicts</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+        }
+        
+        .navbar {
+        background-color: rgb(33, 51, 99);;
+        overflow: hidden;
+        border: 1px solid rgb(33, 51, 99);
+      }
+      .navbar a {
+        justify-content: center;
+        float: left;
+        color: rgb(239, 98, 98);
+        padding: 12px 45px;
+        text-decoration:wavy;
+        font-size: 24px;
+      }
+      .navbar a:hover {
+        color:rgb(239, 98, 98);
+        border-radius: 10px;
+        box-shadow: 3px rgb(70, 114, 121);
+      }
+      
+
+      </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'home' %}">CodeScaper</a>
+        <a href = "#"> {{ user.username }}</a>
+        <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+  
+    </div >
+    <div style="text-align: center;">
+        {{question.problem_name}}
+    </div>
+    <div>
+      <h3>Test Results</h3>
+      <!-- <ul>result aaeyga toh yaha dikhana hai -->
+       {% for result in test_results %}
+       <li>{{result}}</li>
+       {% endfor %}
+      </ul>
+    </div> 
+      
+</body>
+
+</html>
