@@ -60,7 +60,7 @@ def  run_code(language, input_data):
         return f"Error occurred during execution: {e}"
 
 
-def check_tc(tc, language):
+def check_tc(tc, language):  
     for idx, test_case in enumerate(tc, 1):
         formatted_input = str(test_case.tc_input).replace(" ", "\n")
         expected_output = test_case.tc_output.strip()

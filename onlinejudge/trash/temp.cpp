@@ -16,7 +16,7 @@ int main() {
 
     swapNumbers(num1, num2);
 
-    cout << num2<<" " << num2 << endl;
+    cout << num1<<" " << num2 << endl;
    
 
     return 0;
