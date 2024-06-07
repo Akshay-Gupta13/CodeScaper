@@ -97,36 +97,4 @@ def customTc(request):
             answer = run_code(language,str(user_tc_value).replace(" ","\n"))   
             return JsonResponse({"message": answer}, status=200)
     else:
-<<<<<<< HEAD
         return JsonResponse({"message": "Invalid request"}, status=400)
-=======
-        return JsonResponse({"message": "Invalid request"}, status=400)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> 50127ed9c514961a498b81f54ece2bfdd45505fb
