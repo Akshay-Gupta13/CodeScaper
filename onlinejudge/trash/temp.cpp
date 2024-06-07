@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <iostream>
 
 using namespace std;
@@ -21,3 +22,14 @@ int main() {
 
     return 0;
 }
+=======
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+int a , b;
+cin >> a >> b;
+cout << a+b ;
+return 0;
+}
+>>>>>>> 50127ed9c514961a498b81f54ece2bfdd45505fb

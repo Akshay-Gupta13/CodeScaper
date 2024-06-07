@@ -1,6 +1,7 @@
 import subprocess
 import os
 
+
 def compile_code(file_path, language):
     compilers = {
         'c': 'gcc',
@@ -14,7 +15,8 @@ def compile_code(file_path, language):
         curr_dir = os.getcwd()
         trash_dir = os.path.join("onlinejudge", "trash")
         os.chdir(trash_dir)
-        compiled_file = subprocess.run([compiler, file_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        compiled_file = subprocess.run(
+            [compiler, file_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         os.chdir(curr_dir)
 
         std_error = compiled_file.stderr.decode("utf-8")
@@ -26,7 +28,8 @@ def compile_code(file_path, language):
         os.chdir(curr_dir)
         return f"CodeError: {e}"
 
-def  run_code(language, input_data):
+
+def run_code(language, input_data):
     try:
         curr_dir = os.getcwd()
         trash_dir = os.path.join("onlinejudge", "trash")
@@ -43,7 +46,8 @@ def  run_code(language, input_data):
         output = (result.stdout + result.stderr).decode('utf8')
 
         if result.returncode != 0:
-            raise subprocess.CalledProcessError(result.returncode, cmd=result.args, output=output)
+            raise subprocess.CalledProcessError(
+                result.returncode, cmd=result.args, output=output)
 
         return output
     except FileNotFoundError as e:
@@ -60,14 +64,13 @@ def  run_code(language, input_data):
         return f"Error occurred during execution: {e}"
 
 
-def check_tc(tc, language):  
+def check_tc(tc, language):
     for idx, test_case in enumerate(tc, 1):
         formatted_input = str(test_case.tc_input).replace(" ", "\n")
         expected_output = test_case.tc_output.strip()
         actual_output = run_code(language, formatted_input).strip()
-   
+
         if actual_output != expected_output:
             return f"Wrong Answer on test case {idx}"
 
     return "Accepted"
- 
