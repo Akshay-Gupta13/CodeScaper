@@ -25,6 +25,7 @@ SECRET_KEY = 'django-insecure-cdb_7)&^6f0gahc*x4w)k-83opp3%4(dgxu)nw%h=j7&v-kxtv
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# AWS wala link allowed host mai add karna hai
 
 ALLOWED_HOSTS = ['*']
 # change wildcard app domain now working for all allowed hosts.

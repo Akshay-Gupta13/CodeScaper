@@ -8,7 +8,7 @@ def compile_code(file_path, language):
         'cpp': 'g++',
     }
     compiler = compilers.get(language)
-    if not compiler:
+    if not compiler: 
         return 0
 
     try:
@@ -37,11 +37,11 @@ def run_code(language, input_data):
 
         if language == 'py':
             result = subprocess.run(['python', 'temp.py'], input=input_data.encode(),
-                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5)
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=2)
         else:
             result = subprocess.run(['./a.exe'], input=input_data.encode(),
-                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5)
-
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=2)
+#  time out 2 sec testing ke time
         os.chdir(curr_dir)
         output = (result.stdout + result.stderr).decode('utf8')
 
