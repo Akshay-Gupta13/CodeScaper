@@ -66,7 +66,7 @@ def verdict(request,problem_id):
 def sub(request):
     output_list = submissions.objects.all()
     # need to define pagination
-    items_per_page = 6
+    items_per_page = 10
     paginator = Paginator(output_list, items_per_page)
     page = request.GET.get('page')
     try:

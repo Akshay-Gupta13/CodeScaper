@@ -1,5 +1,6 @@
 import subprocess
 import os
+# from .models import Problem, submissions
 
 
 def compile_code(file_path, language):
@@ -37,11 +38,11 @@ def run_code(language, input_data):
 
         if language == 'py':
             result = subprocess.run(['python', 'temp.py'], input=input_data.encode(),
-                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=2)
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout= 2)
         else:
             result = subprocess.run(['./a.exe'], input=input_data.encode(),
-                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=2)
-#  time out 2 sec testing ke time
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout= 2)
+#  time out 2 sec testing ke time varibale timeout for each problem
         os.chdir(curr_dir)
         output = (result.stdout + result.stderr).decode('utf8')
 
